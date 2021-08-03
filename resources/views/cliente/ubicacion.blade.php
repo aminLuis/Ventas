@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-<posicionamiento-component></posicionamiento-component>
+<maps-component></maps-component>
 
 @endsection
