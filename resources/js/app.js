@@ -10,6 +10,8 @@ Vue.component('cliente-component', require('./components/formCliente.vue').defau
 Vue.component('posicionamiento-component', require('./components/geolocalizacion.vue').default);
 Vue.component('maps-component', require('./components/mapa.vue').default);
 
+Vue.component('google-component', require('./components/GoogleMapLoader.vue').default);
+
 //Componente para la paginación (laravel-vue-pagination)
 Vue.component('pagination', require('laravel-vue-pagination'));
 

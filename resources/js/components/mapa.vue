@@ -2,19 +2,31 @@
   
   <div id="app">
     <div class="row">   
-       <GoogleMap :latitude= 13.7013266 :longitude= -89.226622 :title="'Titulo Marcador'" />
-    </div>
-  </div>
+       <geolocalizacion :latitude= 4.6486259 :longitude= -74.2478956 :title="'Titulo Marcador'" />  
+   </div>
+   </div>
 
 </template>
 
 <script>
-import GoogleMap from "./geolocalizacion";
+import geolocalizacion from "./geolocalizacion";
 
 export default {
+
+  data() {
+      return {
+          lati: '',
+          log:''
+      };
+  }, 
+
+  methods:{
+    
+  },
+
   name: 'App',
   components: {
-    GoogleMap
+  geolocalizacion
   }
 }
 </script>

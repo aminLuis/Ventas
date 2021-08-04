@@ -14,7 +14,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return cliente::paginate(1);
+        return cliente::paginate(2);
     }
 
     public function listadoClientes()

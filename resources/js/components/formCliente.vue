@@ -36,11 +36,15 @@
                     <td>{{client.latitud}}</td>
                     <td>{{client.longitud}}</td>
                     <td>
-                         <button @click="editCliente(),cargarDatos(client)" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Editar</button>
-                         <button @click="eliminarCliente(client)" class="btn btn-danger">Borrar</button>
-                         <a href="ubicacion">
-                           <button class="btn btn-success">Ubicar</button>
-                         </a>
+                           <button @click="editCliente(),cargarDatos(client)" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Editar</button>
+                           <br>
+                           
+                           <button class="btn btn-success" data-toggle="modal" data-target="#modalUbicar">Ubicar</button>
+
+                           <br>
+                           <button @click="eliminarCliente(client)" class="btn btn-danger">Borrar</button>
+                          
+                         
                     </td>
                 </tr>
           </tbody>
@@ -125,7 +129,7 @@
 
                                   <div class="form-group">
                                         <label>{{'Latitud'}}</label>
-                                        <input v-model="datosCliente.latitud" type="number" step="any" class="form-control" required>
+                                        <input v-model="lat" type="number" step="any" class="form-control" readonly>
                                   </div>
 
                                </div>
@@ -140,7 +144,7 @@
 
                                     <div class="form-group">
                                         <label>{{'Longitud'}}</label>
-                                        <input v-model="datosCliente.longitud" type="number" step="any" class="form-control" required>
+                                        <input v-model="log" type="number" step="any" class="form-control" readonly>
                                     </div>
 
                                  </div>
@@ -149,6 +153,8 @@
 
                              </div>
 
+                               <geolocalizacion @traer="coord" :latitude= 4.6486259 :longitude= -74.2478956 :title="'Titulo Marcador'"/>
+                                <br>
                               <button type="submit" class="btn btn-success">Guardar</button>
                               
                           </form>
@@ -218,7 +224,7 @@
 
                                   <div class="form-group">
                                         <label>{{'Latitud'}}</label>
-                                        <input v-model="datosCliente.latitud" type="number" step="any" class="form-control" required>
+                                        <input v-model="lat" type="number" step="any" class="form-control" readonly>
                                   </div>
 
                                </div>
@@ -233,7 +239,7 @@
 
                                     <div class="form-group">
                                         <label>{{'Longitud'}}</label>
-                                        <input v-model="datosCliente.longitud" type="number" step="any" class="form-control" required>
+                                        <input v-model="log" type="number" step="any" class="form-control" readonly>
                                     </div>
 
                                  </div>
@@ -241,8 +247,11 @@
                                  <div class="col"></div>
 
                              </div>
-
-                              <button type="submit" class="btn btn-success">Guardar cambios</button>
+                            <div class="row">   
+                                  <geolocalizacion @traer="coord" :latitude= 4.6486259 :longitude= -74.2478956 :title="'Titulo Marcador'"/>  
+                             </div>
+                              <br>
+                            <button type="submit" class="btn btn-success">Guardar cambios</button>
 
                           </form>
                   
@@ -252,11 +261,40 @@
         </div>
 
 
+        <!-- Modal para mostrar ubicación de cliente -->
+
+             <div class="modal" tabindex="-1" id="modalUbicar">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Modal body text goes here.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                        </div>
+                    </div>
+            </div>
+
+
+        <!-- -->
+
+
    </div>
 
 </template>
 
 <script>
+
+import geolocalizacion from "./geolocalizacion";
+
     export default {
 
         data() {
@@ -273,14 +311,15 @@
                    numeroDocumento:'',
                    nombre:'',
                    apellidos:'',
-                   ciudad:'',
-                   latitud:'',
-                   longitud:'',
+                   ciudad:''
                },
                tituloModal:"",
                add:true,
                clientes:{},
-               idUpdate:''
+               idUpdate:'',
+               lat:'',
+               log:'',
+
             };
         },
 
@@ -304,9 +343,9 @@
                 nombre:'',
                 apellidos:'',
                 ciudad:'',
-                latitud:'',
-                longitud:''
             }
+            this.lat='';
+            this.log='';
           },
 
          async listar(page=1){
@@ -317,7 +356,15 @@
          },
 
           async agregarCliente(){
-              axios.post("cliente", this.datosCliente).then((result) => {
+              axios.post("cliente", {
+                tipoDocumento:this.datosCliente.tipoDocumento,
+                numeroDocumento:this.datosCliente.numeroDocumento,
+                nombre:this.datosCliente.nombre,
+                apellidos:this.datosCliente.apellidos,
+                ciudad:this.datosCliente.ciudad,
+                latitud:this.lat,
+                longitud:this.log
+              }).then((result) => {
                    console.log(result);
                     alert('Cliente agregado');
                     this.limpiarCampos();
@@ -329,7 +376,15 @@
           },
 
           async actualizarCliente(){
-             axios.put('cliente/'+this.idUpdate,this.datosCliente).then((result)=>{
+             axios.put('cliente/'+this.idUpdate,{
+                 tipoDocumento:this.datosCliente.tipoDocumento,
+                numeroDocumento:this.datosCliente.numeroDocumento,
+                nombre:this.datosCliente.nombre,
+                apellidos:this.datosCliente.apellidos,
+                ciudad:this.datosCliente.ciudad,
+                latitud:this.lat,
+                longitud:this.log
+             }).then((result)=>{
                 console.log(result);
                 this.listar();
             }).catch(function(err){
@@ -352,20 +407,40 @@
                       nombre:client.nombre,
                       apellidos:client.apellidos,
                       ciudad:client.ciudad,
-                      latitud:client.latitud,
-                      longitud:client.longitud
                   }
+                  this.lat = client.latitud;
+                  this.log = client.longitud;
                   this.idUpdate = client.id;
           },
       
+           async coord(obj){
+             this.lat = obj.lat;
+             this.log = obj.lng;
+           }
+
         },
 
+        
         mounted() {
             console.log('Component mounted.')
         },
         created() {
            this.listar();      
+        },
+
+        name: 'App',
+        components: {
+        geolocalizacion
         }
 
     }
 </script>
+
+<style scoped>
+
+   .btn{
+       margin-top: 2px;
+       width: 90px;
+   }
+
+</style>
