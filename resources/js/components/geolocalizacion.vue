@@ -24,10 +24,6 @@
       return {
         
         center: {lat: this.latitude, lng: this.longitude},
-        markers: [{
-          position: {lat: this.latitude, lng: this.longitude},
-          title: this.title
-        }],
         coordinates: {
           lat:'',
           lng:''
@@ -37,8 +33,8 @@
     },
 
     props: {
-        latitude: Number,
-        longitude: Number,
+        latitude: null,
+        longitude: null,
         title: String
     },
 

@@ -17,7 +17,6 @@
                    <div class="acciones">
                         <button @click="addVenta();obtenerHora()" class="btn btn-success ancho" data-toggle="modal" data-target="#exampleModal">Nueva</button>
                         <button @click="informeGeneral()" class="btn btn-info ancho text-white" data-toggle="modal" data-target="#informeGeneral">Informe general</button>
-                        <button class="btn btn-info ancho text-white">Informe ubicación</button>
                         <a href="inicio">
                           <button class="btn btn-info ancho text-white">Registro cliente</button>
                         </a>

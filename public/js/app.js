@@ -2272,6 +2272,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2289,7 +2294,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       clientes: {},
       idUpdate: '',
       lat: '',
-      log: ''
+      log: '',
+      informeLat: 0,
+      informeLog: 0
     };
   },
   methods: {
@@ -2438,6 +2445,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(result);
 
                   _this6.listar();
+
+                  alert('Se ha actualizado el registro');
                 })["catch"](function (err) {
                   console.log(err);
                 });
@@ -2527,6 +2536,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee9);
       }))();
+    },
+    cargarCoordenadas: function cargarCoordenadas(client) {
+      var _this10 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
+          while (1) {
+            switch (_context10.prev = _context10.next) {
+              case 0:
+                _this10.informeLat = client.latitud;
+                _this10.informeLog = client.longitud;
+
+              case 2:
+              case "end":
+                return _context10.stop();
+            }
+          }
+        }, _callee10);
+      }))();
     }
   },
   mounted: function mounted() {
@@ -2560,7 +2588,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
 //
 //
 //
@@ -3078,13 +3105,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         lat: this.latitude,
         lng: this.longitude
       },
-      markers: [{
-        position: {
-          lat: this.latitude,
-          lng: this.longitude
-        },
-        title: this.title
-      }],
       coordinates: {
         lat: '',
         lng: ''
@@ -3092,8 +3112,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   props: {
-    latitude: Number,
-    longitude: Number,
+    latitude: null,
+    longitude: null,
     title: String
   },
   methods: {
@@ -41334,7 +41354,9 @@ var render = function() {
         [_vm._v("Nuevo")]
       ),
       _vm._v(" "),
-      _c("hr"),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
       _vm._v(" "),
       _c("table", { staticClass: "table table-hover" }, [
         _vm._m(1),
@@ -41377,17 +41399,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: {
-                      "data-toggle": "modal",
-                      "data-target": "#modalUbicar"
-                    }
-                  },
-                  [_vm._v("Ubicar")]
-                ),
+                _vm._m(2, true),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
@@ -41429,7 +41441,7 @@ var render = function() {
                   _vm._v(_vm._s(_vm.tituloModal))
                 ]),
                 _vm._v(" "),
-                _vm._m(2)
+                _vm._m(3)
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
@@ -42032,6 +42044,7 @@ var render = function() {
                           "button",
                           {
                             staticClass: "btn btn-success",
+                            staticStyle: { width: "140px" },
                             attrs: { type: "submit" }
                           },
                           [_vm._v("Guardar cambios")]
@@ -42044,7 +42057,37 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm._m(3)
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: { tabindex: "-1", id: "modalUbicar" }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog modal-lg" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "modal-body" },
+                [
+                  _c("geolocalizacion", {
+                    attrs: {
+                      latitude: _vm.informeLat,
+                      longitude: _vm.informeLog,
+                      title: "Titulo Marcador"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(5)
+            ])
+          ])
+        ]
+      )
     ],
     1
   )
@@ -42086,6 +42129,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "ubicacion" } }, [
+      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Ubicar")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c(
       "button",
       {
@@ -42103,57 +42154,39 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "modal", attrs: { tabindex: "-1", id: "modalUbicar" } },
-      [
-        _c("div", { staticClass: "modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "modal-header" }, [
-              _c("h5", { staticClass: "modal-title" }, [_vm._v("Modal title")]),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "close",
-                  attrs: {
-                    type: "button",
-                    "data-dismiss": "modal",
-                    "aria-label": "Close"
-                  }
-                },
-                [
-                  _c("span", { attrs: { "aria-hidden": "true" } }, [
-                    _vm._v("×")
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-body" }, [
-              _c("p", [_vm._v("Modal body text goes here.")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-secondary",
-                  attrs: { type: "button", "data-dismiss": "modal" }
-                },
-                [_vm._v("Close")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                [_vm._v("Save changes")]
-              )
-            ])
-          ])
-        ])
-      ]
-    )
+    return _c("div", { staticClass: "modal-header bg-primary" }, [
+      _c("h5", { staticClass: "modal-title text-white" }, [
+        _vm._v("Informe por ubicación")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -42216,10 +42249,6 @@ var render = function() {
             },
             [_vm._v("Informe general")]
           ),
-          _vm._v(" "),
-          _c("button", { staticClass: "btn btn-info ancho text-white" }, [
-            _vm._v("Informe ubicación")
-          ]),
           _vm._v(" "),
           _vm._m(1)
         ])

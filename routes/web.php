@@ -15,9 +15,9 @@ Route::get('/home', function(){
     return view('venta.index');
 });
 
-Route::resource('venta', VentasController::class);
+Route::resource('venta', 'VentasController')->middleware('auth');
 
-Route::resource('cliente', ClienteController::class);
+Route::resource('cliente', 'ClienteController')->middleware('auth');
 
 Route::get('inicio', function(){
     return view('cliente.inicio');
@@ -31,5 +31,6 @@ Route::get('listaVentas', 'VentasController@listaVentas');
 Route::get('informeGeneral', 'VentasController@informeGeneral');
 
 Route::get('ubicacion', function(){
-    return view('cliente.ubicacion');
+    $datos = '';
+    return view('cliente.ubicacion',compact('datos'));
 });

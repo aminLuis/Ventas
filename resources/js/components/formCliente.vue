@@ -10,7 +10,8 @@
 
       <br>
       <button @click="addCliente()" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Nuevo</button>
-      <hr>
+       <br>
+      <br>
 
       <table class="table table-hover">
 
@@ -39,7 +40,9 @@
                            <button @click="editCliente(),cargarDatos(client)" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Editar</button>
                            <br>
                            
-                           <button class="btn btn-success" data-toggle="modal" data-target="#modalUbicar">Ubicar</button>
+                           <a href="ubicacion">
+                            <button class="btn btn-success">Ubicar</button>
+                           </a>
 
                            <br>
                            <button @click="eliminarCliente(client)" class="btn btn-danger">Borrar</button>
@@ -251,7 +254,7 @@
                                   <geolocalizacion @traer="coord" :latitude= 4.6486259 :longitude= -74.2478956 :title="'Titulo Marcador'"/>  
                              </div>
                               <br>
-                            <button type="submit" class="btn btn-success">Guardar cambios</button>
+                            <button type="submit" class="btn btn-success" style="width:140px">Guardar cambios</button>
 
                           </form>
                   
@@ -263,21 +266,23 @@
 
         <!-- Modal para mostrar ubicación de cliente -->
 
-             <div class="modal" tabindex="-1" id="modalUbicar">
-                    <div class="modal-dialog">
+             <div class="modal fade" tabindex="-1" id="modalUbicar">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Modal title</h5>
+                        <div class="modal-header bg-primary">
+                            <h5 class="modal-title text-white">Informe por ubicación</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Modal body text goes here.</p>
+                          
+                              <geolocalizacion :latitude="informeLat" :longitude="informeLog"  :title="'Titulo Marcador'"/>
+                          
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            
                         </div>
                         </div>
                     </div>
@@ -319,7 +324,8 @@ import geolocalizacion from "./geolocalizacion";
                idUpdate:'',
                lat:'',
                log:'',
-
+               informeLat:0,
+               informeLog:0
             };
         },
 
@@ -387,6 +393,7 @@ import geolocalizacion from "./geolocalizacion";
              }).then((result)=>{
                 console.log(result);
                 this.listar();
+                alert ('Se ha actualizado el registro');
             }).catch(function(err){
                 console.log(err);
             });
@@ -416,8 +423,13 @@ import geolocalizacion from "./geolocalizacion";
            async coord(obj){
              this.lat = obj.lat;
              this.log = obj.lng;
-           }
+           },
 
+           async cargarCoordenadas(client){
+             this.informeLat = client.latitud;
+             this.informeLog = client.longitud;
+           }
+           
         },
 
         
