@@ -10,7 +10,12 @@
 
       <br>
       <button @click="addCliente()" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Nuevo</button>
-       <br>
+      
+      <a href="home">
+        <button class="btn btn-info text-white">Ventas</button>
+      </a>
+      
+      <br>
       <br>
 
       <table class="table table-hover">

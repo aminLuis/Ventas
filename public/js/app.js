@@ -2277,6 +2277,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2982,6 +2987,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(result);
 
                   _this9.listar();
+
+                  alert('Registro actualizado con exito');
                 })["catch"](function (err) {
                   console.log(err);
                 });
@@ -41354,12 +41361,14 @@ var render = function() {
         [_vm._v("Nuevo")]
       ),
       _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
       _c("br"),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
       _c("table", { staticClass: "table table-hover" }, [
-        _vm._m(1),
+        _vm._m(2),
         _vm._v(" "),
         _c(
           "tbody",
@@ -41399,7 +41408,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _vm._m(3, true),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
@@ -41441,7 +41450,7 @@ var render = function() {
                   _vm._v(_vm._s(_vm.tituloModal))
                 ]),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(4)
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
@@ -42066,7 +42075,7 @@ var render = function() {
         [
           _c("div", { staticClass: "modal-dialog modal-lg" }, [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
+              _vm._m(5),
               _vm._v(" "),
               _c(
                 "div",
@@ -42083,7 +42092,7 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _vm._m(5)
+              _vm._m(6)
             ])
           ])
         ]
@@ -42100,6 +42109,16 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-header" }, [
         _c("h5", [_vm._v("Registro de cliente")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "home" } }, [
+      _c("button", { staticClass: "btn btn-info text-white" }, [
+        _vm._v("Ventas")
       ])
     ])
   },

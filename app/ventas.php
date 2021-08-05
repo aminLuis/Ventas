@@ -13,8 +13,8 @@ class ventas extends Model
      */
 
     //Relación de muchos a uno, una venta sólo puede tener un cliente 
-   /* public function cliente(): HasOne
+    public function cliente(): HasOne
     {
         return $this->hasOne(cliente::class);
-    }*/
+    }
 }

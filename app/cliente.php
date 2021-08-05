@@ -17,8 +17,8 @@ class cliente extends Model
     */
 
   //Relación de uno a muchos, un cliente puede tener varios detalles de venta
-  /* public function detallesVenta(): HasMany
+   public function detallesVenta(): HasMany
    {
        return $this->hasMany(ventas::class, 'idCliente');
-   }*/
+   }
 }

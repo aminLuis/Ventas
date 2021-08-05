@@ -282,6 +282,7 @@
                 }).then((result) => {
                         console.log(result);
                             this.listar();
+                            alert ('Registro actualizado con exito');
                         }).catch(function(err){
                         console.log(err);
                     });
